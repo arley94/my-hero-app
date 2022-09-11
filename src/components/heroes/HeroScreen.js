@@ -1,9 +1,11 @@
 import { Button, Card, CardMedia, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import React, { useMemo } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getHeroById } from '../../selectors/getHeroById';
 
 const HeroScreen = () => {
+
+  const location = useLocation();
 
   const navigate = useNavigate();
 
@@ -25,12 +27,14 @@ const HeroScreen = () => {
 
   const handleReturn = () => {
 
-    //* https://stackoverflow.com/questions/9564041/why-history-length-is-2-for-the-first-page
-    if (window.history.length <= 2) {
+    const { from } = location.state || {};
+
+    if (!from) {
       return navigate('/');
-    } else {
-      navigate(-1);
     }
+
+    navigate(from);
+
   }
 
   return (

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 
-import { Link as LinkRouter } from 'react-router-dom';
+import { Link as LinkRouter, useLocation } from 'react-router-dom';
 
 const HeroCard = ({
   id,
@@ -16,6 +16,8 @@ const HeroCard = ({
   first_appearance,
   characters
 }) => {
+
+  const location = useLocation();
 
   return (
     <Card sx={{ display: { sm: 'flex' }, height: '100%' }} >
@@ -53,6 +55,7 @@ const HeroCard = ({
           <Button
             component={LinkRouter}
             to={`/hero/${id}`}
+            state={{ from: `${location.pathname}${location.search}` }}
             size="small">
             Más...
           </Button>
