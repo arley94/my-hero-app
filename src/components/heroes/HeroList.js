@@ -1,6 +1,9 @@
 import { Alert } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import React, { useMemo } from 'react';
+
+
+import React, { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getHeroesByName } from '../../selectors/getHeroesByName';
 import { getHeroesByPublisher } from '../../selectors/getHeroesByPublisher';
 import HeroCard from './HeroCard';
@@ -21,6 +24,31 @@ const getHerosList = (searchType, searchTerm) => {
 const HeroListWithoutMemo = ({ searchType, searchTerm, size }) => {
 
   const heroes = useMemo(() => getHerosList(searchType, searchTerm), [searchTerm, searchType]);
+
+  //* uso el state de location para manejar el scroll
+  const location = useLocation();
+
+  console.log(location);
+  const { cardId } = location.state || {};
+
+  //* Este useEffect se encarga de situar el scroll adecuadamente
+  useEffect(() => {
+    console.log('scroll useEffect');
+    console.log(cardId);
+    if (cardId) {
+      const item = document.querySelector(
+        `.scroll-${cardId}`
+      );
+      if (item) {
+        console.log('scrollIntoView')
+        item.scrollIntoView();
+        window.scrollBy(0, -50);
+      }
+    } else {
+      window.scroll(0, 0);
+      console.log('scroll en 0,0')
+    }
+  })
 
   const gridSize = {
     sm: size?.width < 600 ? 12 : 6,

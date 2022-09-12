@@ -55,7 +55,7 @@ const HeroCard = ({
           <Button
             component={LinkRouter}
             to={`/hero/${id}`}
-            state={{ from: `${location.pathname}${location.search}` }}
+            state={{ from: `${location.pathname}${location.search}`, cardId: id }}
             size="small">
             Más...
           </Button>

@@ -27,13 +27,13 @@ const HeroScreen = () => {
 
   const handleReturn = () => {
 
-    const { from } = location.state || {};
+    const { from, cardId } = location.state || {};
 
     if (!from) {
       return navigate('/');
     }
 
-    navigate(from);
+    navigate(from, { state: { cardId } });
 
   }
 
